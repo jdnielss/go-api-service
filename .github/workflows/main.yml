@@ -3,11 +3,14 @@ name: Build Docker Image on Tag Push
 on:
   push:
     tags:
-      - '*'  # This triggers the workflow on any new tag push
+      - '*'
 
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
+
+    env: 
+      ENVIRONMENT: production
 
     steps:
       - name: Checkout code
