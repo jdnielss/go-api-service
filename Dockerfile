@@ -1,0 +1,26 @@
+# Stage 1: Build the Go application
+FROM golang:1.21 AS builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Go source code into the container
+COPY . .
+
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+# Stage 2: Create the minimal runtime image
+FROM alpine:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the binary built in the first stage into this stage
+COPY --from=builder /app/app .
+
+# Expose the port your Go application listens on
+EXPOSE 8080
+
+# Command to run your application
+CMD ["./app"]
