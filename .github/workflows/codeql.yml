@@ -9,8 +9,8 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ (matrix.language == 'go1.21' && 'ubuntu-latest') || 'ubuntu-latest' }}
-    timeout-minutes: ${{ (matrix.language == 'go1.21' && 120) || 360 }}
+    runs-on: ${{ matrix.language == 'go' && 'ubuntu-latest' || 'ubuntu-latest' }}
+    timeout-minutes: ${{ matrix.language == 'go' && 120 || 360 }}
     permissions:
       actions: read
       contents: read
@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'go1.21' ]
+        language: [ 'go' ]
 
     steps:
     - name: Checkout repository
@@ -31,11 +31,14 @@ jobs:
         languages: ${{ matrix.language }}
 
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-      with:
-        go-version: 1.21
+      env:
+        GOVERSION: 1.21
+      run: |
+        echo "::set-env name=GOVERSION::$GOVERSION"
+        echo "Using Go version $GOVERSION"
+        go version
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/language:${{matrix.language}}"
+        category: "/language:${{ matrix.language }}"
