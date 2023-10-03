@@ -6,28 +6,6 @@ on:
       - '*'
 
 jobs:
-  codeql-analysis:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.21
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: go # Modify this to match your desired language
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:go" # Modify this to match your desired language
-  
   build-docker-image:
     runs-on: ubuntu-latest
 
