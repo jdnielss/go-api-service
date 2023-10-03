@@ -30,13 +30,11 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      env:
-        GOVERSION: 1.21
-      run: |
-        echo "::set-env name=GOVERSION::$GOVERSION"
-        echo "Using Go version $GOVERSION"
-        go version
+    - name: Set Go version
+      run: echo "GOVERSION=1.21" >> $GITHUB_ENV
+
+    - name: Verify Go version
+      run: echo "Using Go version $GOVERSION"
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
