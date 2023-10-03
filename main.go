@@ -42,7 +42,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 			Message: "OK",
 			Code:    http.StatusOK,
 		},
-		Data: "Hello World Kiw Cukurukuk",
+		Data: "Hello World from Go!",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
