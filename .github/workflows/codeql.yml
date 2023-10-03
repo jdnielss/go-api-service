@@ -9,8 +9,8 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ matrix.language == 'go' && 'ubuntu-latest' || 'ubuntu-latest' }}
-    timeout-minutes: ${{ matrix.language == 'go' && 120 || 360 }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
     permissions:
       actions: read
       contents: read
@@ -30,11 +30,10 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
-    - name: Set Go version
-      run: echo "GOVERSION=1.21" >> $GITHUB_ENV
-
-    - name: Verify Go version
-      run: echo "Using Go version $GOVERSION"
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+      with:
+        go: 1.20.7
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
