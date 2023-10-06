@@ -25,9 +25,9 @@ type Response struct {
 func main() {
 	log.Println("Starting the HTTP server on port 8080")
 
-	http.HandleFunc("/", index)
-	http.HandleFunc("/health", healthCheck)
-	http.HandleFunc("/users", GetUsers)
+	http.HandleFunc("/api", index)
+	http.HandleFunc("/api/health", healthCheck)
+	http.HandleFunc("/api/users", GetUsers)
 	http.ListenAndServe(":8080", nil)
 }
 
