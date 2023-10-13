@@ -42,7 +42,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 			Message: "OK",
 			Code:    http.StatusOK,
 		},
-		Data: "Hello World from Go! 1.5.4",
+		Data: "Hello World from Go!",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -76,6 +76,9 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	users := []User{
 		{ID: 1, Username: "user1", Email: "user1@example.com"},
 		{ID: 2, Username: "user2", Email: "user2@example.com"},
+		{ID: 3, Username: "user2", Email: "user2@example.com"},
+		{ID: 4, Username: "user2", Email: "user2@example.com"},
+		{ID: 5, Username: "user2", Email: "user2@example.com"},
 	}
 
 	// Create a Response instance
