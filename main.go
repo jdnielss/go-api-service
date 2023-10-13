@@ -79,6 +79,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		{ID: 3, Username: "user2", Email: "user2@example.com"},
 		{ID: 4, Username: "user2", Email: "user2@example.com"},
 		{ID: 5, Username: "user2", Email: "user2@example.com"},
+		{ID: 6, Username: "user baru", Email: "user_baru@example.com"},
 	}
 
 	// Create a Response instance
