@@ -1,7 +1,17 @@
 pipeline {
   agent any
-  
+
+  environment {
+      VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+  }
+    
   stages {
+    stage("Version"){
+      steps {
+        echo "$VERSION"
+      }
+    }
+    
     stage("Docker Build") {
       steps {
         sh("docker build -t go-api:v10 .")
