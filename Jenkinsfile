@@ -16,7 +16,7 @@ pipeline {
 
     stage("Run Docker Image") {
       steps {
-        sh("docker run -p 80:8080 go-api:v10 -d")
+        sh("docker run -d -p 80:8080 go-api:v10")
       }
     }
   }
