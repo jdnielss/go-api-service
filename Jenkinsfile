@@ -1,33 +1,28 @@
 pipeline {
-  agent any
-
-  environment {
-      VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-  }
+    agent any
     
-  stages {
-    stage("Version"){
-      steps {
-        echo "$VERSION"
-      }
+    environment {
+        GIT_TAG = sh(script: 'git describe --tags $(git rev-list --tags --max-count=1)', returnStdout: true).trim()
+        DOCKER_IMAGE = "go-api:${GIT_TAG}"
     }
     
-    stage("Docker Build") {
-      steps {
-        sh("docker build -t go-api:v10 .")
-      }
-    }
+    stages {
+        stage("Docker Build") {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE} ."
+            }
+        }
 
-    stage("Docker Login") {
-      steps {
-        sh("docker login")
-      }
-    }
+        stage("Docker Login") {
+            steps {
+                sh("docker login")
+            }
+        }
 
-    stage("Run Docker Image") {
-      steps {
-        sh("docker run -d -p 80:8080 go-api:v10")
-      }
+        stage("Run Docker Image") {
+            steps {
+                sh("docker run -d -p 80:8080 ${DOCKER_IMAGE}")
+            }
+        }
     }
-  }
 }
