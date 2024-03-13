@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage("Docker Build") {
       steps {
-        sh("docker build -t go-api:v1 .")
+        sh("docker build -t go-api:v10 .")
       }
     }
 
@@ -14,15 +14,9 @@ pipeline {
       }
     }
 
-    stage("Push Docker Image") {
-      steps {
-        sh("docker push go-api:v1")
-      }
-    }
-
     stage("Run Docker Image") {
       steps {
-        sh("docker run -p 8080:8080 go-api:v1 -d")
+        sh("docker run -p 80:8080 go-api:v10 -d")
       }
     }
   }
