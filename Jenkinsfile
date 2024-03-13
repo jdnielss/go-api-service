@@ -9,6 +9,12 @@ pipeline {
       }
     }
 
+    stage("Docker Login") {
+      steps {
+        sh("docker login")
+      }
+    }
+
     stage("Push Docker Image") {
       steps {
         sh("docker push go-api:v1")
